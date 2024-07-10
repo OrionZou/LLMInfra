@@ -1,0 +1,32 @@
+ARG BASE_IMAGE=moffett/macs-ubuntu:sola3.6.1.7-v1.2
+
+FROM $BASE_IMAGE
+
+RUN cd ~/ && wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN cd ~/ && bash Miniconda3-latest-Linux-x86_64.sh -b -p ~/miniconda3 && ~/miniconda3/bin/conda init bash && rm -r Miniconda3-latest-Linux-x86_64.sh
+
+ARG conda_env_name=infra
+
+ENV PATH=~/miniconda3/bin:$PATH
+RUN ~/miniconda3/bin/conda create -n ${conda_env_name} python=3.10 --yes
+ENV PATH=~/miniconda/envs/${conda_env_name}/bin:$PATH
+ENV CONDA_DEFAULT_ENV=${conda_env_name}
+
+# 设置工作目录
+WORKDIR /repos
+# 拷贝当前目录下的所有文件到工作目录
+COPY . /repos
+
+# 设置环境变量
+ENV PIP_NO_CACHE_DIR=off
+
+# 安装依赖
+# RUN poetry install
+RUN bash -c "source ~/miniconda3/bin/activate ${conda_env_name} && pip3 install torch==2.1.2 --index-url https://download.pytorch.org/whl/cpu --no-cache-dir --timeout=7200  && pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir --timeout=7200"
+
+# 启动服务
+# python examples/rag-serving/server.py
+# CMD ["/bin/bash", "-c", "source ~/miniconda3/bin/activate ${conda_env_name} && /bin/bash"]
+RUN sed -i '/\~\/miniconda3\/bin\/activate ${conda_env_name}/d' ~/.bashrc
+
+CMD ["/bin/bash"]
