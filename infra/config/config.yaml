@@ -1,0 +1,12 @@
+http:
+  host: 0.0.0.0
+  port: 15000
+serving:
+  model_type: llama
+  model_path: /mnt/moffett/workspace/models/llama/llama3_8b_layer32_maxseqlen2048_deliver_20240524/
+  tokenizer_path: /mnt/moffett/workspace/models/tokenizer/openbuddy-llama3-8b-v21.1-8k/
+  max_token: 8192
+  temperature: 0.0
+  top_p: 0.9
+  top_k_num: 10
+  repeat_penalty: 1.01

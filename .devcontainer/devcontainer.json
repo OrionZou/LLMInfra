@@ -1,0 +1,35 @@
+{
+    "name": "VLLM_Dev_Env",
+    "build": {
+        "dockerfile": "../Dockerfile-Nvidia",
+        "context": "..",
+        "args": {
+            "BASE_IMAGE": "gyzou/mllm-gpu-1.0.0:base-x86"
+        }
+    },
+    "image": "dev:infra",
+    "runArgs": ["--network=host","--gpus=all"],
+    // "forwardPorts": [1080,1081,7980,7891,50001,50002,15000],
+    "settings": {
+        "terminal.integrated.shellIntegration.enabled": false,
+        "python.pythonPath": "/root/miniconda3/envs/infra/bin/python",
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true
+    },
+    "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "mhutchie.git-graph"
+        ],
+    
+    // "postCreateCommand": "poetry install",
+    
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/repos,type=bind",
+        "source=/ssd_1234/gyzou/models,target=/models,type=bind"
+    ],
+
+    "workspaceFolder": "/repos",
+
+    "remoteUser": "root"
+}

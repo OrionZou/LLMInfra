@@ -1,0 +1,15 @@
+pyyaml==6.0.1 
+transformers ==4.38.1 
+tiktoken == 0.6.0 
+openai == 1.16.2
+ipython == 8.20.0
+ipdb == 0.13.13
+poetry == 1.8.3
+protobuf == 5.27.1 
+flask == 2.3.3
+loguru == 0.7.2
+grpcio == 1.59.2
+pandas ==2.1.4
+matplotlib == 3.7.2
+setuptools==69.0.0
+
