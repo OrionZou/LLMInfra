@@ -4,10 +4,10 @@
         "dockerfile": "../Dockerfile-Nvidia",
         "context": "..",
         "args": {
-            "BASE_IMAGE": "gyzou/mllm-gpu-1.0.0:base-x86"
+            "CONDA_ENV_NAME": "infra" 
         }
     },
-    "image": "dev:infra",
+    "image": "orion-dev/infra-vllm:vllm",
     "runArgs": ["--network=host","--gpus=all"],
     // "forwardPorts": [1080,1081,7980,7891,50001,50002,15000],
     "settings": {
