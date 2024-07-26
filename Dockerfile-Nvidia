@@ -56,7 +56,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 # user authorization sudo, reserved change root
 # set container start user and work directory
 #===============================================================
-ARG user=moffett
+ARG user=orion
 RUN echo ${user}" ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
     && useradd -ms /bin/bash ${user}  \
     && mkdir -p ${user}:${user} /home/${user}/workspace \
@@ -85,7 +85,7 @@ ENV CONDA_DEFAULT_ENV=${CONDA_ENV_NAME}
 # 安装依赖
 # RUN poetry install
 RUN bash -c "source ~/miniconda3/bin/activate ${CONDA_ENV_NAME} && pip install torch==2.2.1 --index-url https://download.pytorch.org/whl/cpu --no-cache-dir"
-RUN bash -c "source ~/miniconda3/bin/activate ${CONDA_ENV_NAME} && pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir --timeout=7200"
+RUN bash -c "source ~/miniconda3/bin/activate ${CONDA_ENV_NAME} && pip install vllm==0.5.1 -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir --timeout=7200"
 
 # 启动服务
 RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc

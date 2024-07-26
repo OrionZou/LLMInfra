@@ -60,7 +60,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 # user authorization sudo, reserved change root
 # set container start user and work directory
 #===============================================================
-ARG user=moffett
+ARG user=orion
 RUN echo ${user}" ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
     && useradd -ms /bin/bash ${user}  \
     && mkdir -p ${user}:${user} /home/${user}/workspace \
