@@ -84,7 +84,8 @@ ENV CONDA_DEFAULT_ENV=${CONDA_ENV_NAME}
 
 # 安装依赖
 # RUN poetry install
-RUN bash -c "source ~/miniconda3/bin/activate ${CONDA_ENV_NAME} && pip install vllm==0.5.1 -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir --timeout=7200"
+# https://pypi.mirrors.ustc.edu.cn/simple/
+RUN bash -c "source ~/miniconda3/bin/activate ${CONDA_ENV_NAME} && pip install vllm==0.5.1 -i https://pypi.mirrors.ustc.edu.cn/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir --timeout=7200"
 
 # 启动服务
 RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc

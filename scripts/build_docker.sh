@@ -5,8 +5,8 @@
 # Nvidia
 tag=vllm
 docker build -t orion-dev/infra-vllm:${tag} --build-arg CONDA_ENV_NAME=infra -f ./Dockerfile-Nvidia .
-docekr push orion-dev/infra-vllm:${tag}
+# docker push orion-dev/infra-vllm:${tag}
 
-docker run -itd --net=host -v $(pwd):/repos -v $(pwd)/../models:/models --privileged=true --name ${tag} orion-dev/infra-vllm:${tag} bash
+docker run -itd --net host --gpus all -v $(pwd):/repos -v $(pwd)/../models:/models --privileged=true --name ${tag} orion-dev/infra-vllm:${tag} bash
 
 docker exec -it ${tag} bash
